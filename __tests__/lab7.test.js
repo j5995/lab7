@@ -21,7 +21,7 @@ describe('Basic user flow for Website', () => {
   // Check to make sure that all 20 <product-item> elements have data in them
   // We use .skip() here because this test has a TODO that has not been completed yet.
   // Make sure to remove the .skip after you finish the TODO. 
-  it.skip('Make sure <product-item> elements are populated', async () => {
+  it('Make sure <product-item> elements are populated', async () => {
     console.log('Checking to make sure <product-item> elements are populated...');
 
     // Start as true, if any don't have data, swap to false
@@ -38,13 +38,9 @@ describe('Basic user flow for Website', () => {
     console.log(`Checking product item 1/${prodItemsData.length}`);
 
     // Make sure the title, price, and image are populated in the JSON
-    firstValue = prodItemsData[0];
-    if (firstValue.title.length == 0) { allArePopulated = false; }
-    if (firstValue.price.length == 0) { allArePopulated = false; }
-    if (firstValue.image.length == 0) { allArePopulated = false; }
+    //firstValue = prodItemsData[0];
 
     // Expect allArePopulated to still be true
-    expect(allArePopulated).toBe(true);
 
     /**
     **** TODO - STEP 1 ****
@@ -52,7 +48,13 @@ describe('Basic user flow for Website', () => {
       it checks every <product-item> it found
     * Remove the .skip from this it once you are finished writing this test.
     */
-
+    for(let i = 0; i<prodItemsData.size; i++){
+    	let itemValue = prodItemsData[i];
+    	if (itemValue.title.length == 0) { allArePopulated = false; }
+    	if (itemValue.price.length == 0) { allArePopulated = false; }
+    	if (itemValue.image.length == 0) { allArePopulated = false; }
+    }
+    expect(allArePopulated).toBe(true);
   }, 10000);
 
   // Check to make sure that when you click "Add to Cart" on the first <product-item> that
