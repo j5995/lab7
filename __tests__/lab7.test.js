@@ -59,7 +59,7 @@ describe('Basic user flow for Website', () => {
 
   // Check to make sure that when you click "Add to Cart" on the first <product-item> that
   // the button swaps to "Remove from Cart"
-  it.skip('Clicking the "Add to Cart" button should change button text', async () => {
+  it('Clicking the "Add to Cart" button should change button text', async () => {
     console.log('Checking the "Add to Cart" button...');
 
     /**
@@ -70,7 +70,17 @@ describe('Basic user flow for Website', () => {
      * Once you have the innerText property, use innerText.jsonValue() to get the text value of it
      * Remember to remove the .skip from this it once you are finished writing this test.
      */
-
+     const testItem = await page.$('product-item');
+     const shadowRoot = await testItem.getProperty("shadowRoot"); 
+     const button = await shadowRoot.$('button');
+     const buttonText = await button.getProperty("innerText");
+     const textBefore = buttonText.jsonValue();
+     const result1 = await button.innerText;
+     button.click;
+     const result2 = await button.innerText;
+     const textAfter = buttonText.jsonValue();
+     console.log(`${result1}, then ${result2}`);
+     expect(textAfter===textBefore).toBe(false); 
   }, 2500);
 
   // Check to make sure that after clicking "Add to Cart" on every <product-item> that the Cart
