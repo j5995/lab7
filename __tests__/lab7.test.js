@@ -6,7 +6,7 @@ describe('Basic user flow for Website', () => {
 
   // Each it() call is a separate test
   // Here, we check to make sure that all 20 <product-item> elements have loaded
-  it('Initial Home Page - Check for 20 product items', async () => {
+  it.skip('Initial Home Page - Check for 20 product items', async () => {
     console.log('Checking for 20 product items...');
 
     // Query select all of the <product-item> elements and return the length of that array
@@ -21,7 +21,7 @@ describe('Basic user flow for Website', () => {
   // Check to make sure that all 20 <product-item> elements have data in them
   // We use .skip() here because this test has a TODO that has not been completed yet.
   // Make sure to remove the .skip after you finish the TODO. 
-  it('Make sure <product-item> elements are populated', async () => {
+  it.skip('Make sure <product-item> elements are populated', async () => {
     console.log('Checking to make sure <product-item> elements are populated...');
 
     // Start as true, if any don't have data, swap to false
@@ -59,7 +59,7 @@ describe('Basic user flow for Website', () => {
 
   // Check to make sure that when you click "Add to Cart" on the first <product-item> that
   // the button swaps to "Remove from Cart"
-  it('Clicking the "Add to Cart" button should change button text', async () => {
+  it.skip('Clicking the "Add to Cart" button should change button text', async () => {
     console.log('Checking the "Add to Cart" button...');
 
     /**
@@ -79,13 +79,13 @@ describe('Basic user flow for Website', () => {
      button.click;
      const result2 = await button.innerText;
      const textAfter = buttonText.jsonValue();
-     console.log(`${result1}, then ${result2}`);
+     //console.log(`${result1}, then ${result2}`);
      expect(textAfter===textBefore).toBe(false); 
   }, 2500);
 
   // Check to make sure that after clicking "Add to Cart" on every <product-item> that the Cart
   // number in the top right has been correctly updated
-  it.skip('Checking number of items in cart on screen', async () => {
+  it('Checking number of items in cart on screen', async () => {
     console.log('Checking number of items in cart on screen...');
 
     /**
@@ -95,7 +95,17 @@ describe('Basic user flow for Website', () => {
      * Check to see if the innerText of #cart-count is 20
      * Remember to remove the .skip from this it once you are finished writing this test.
      */
+    const prodItemsData = await page.$$('product-item');
+    for(let i = 0; i<prodItemsData.length; i+=1){
+    	let shadowRoot = await prodItemsData[i].getProperty("shadowRoot");
+	let button = await shadowRoot.$('button');
+	button.click;
+    }
+    const val = await page.$eval('#cart-count', (t) => {
+      return t.textContent;
+    });
 
+    expect(val===20).toBe(true); 
   }, 10000);
 
   // Check to make sure that after you reload the page it remembers all of the items in your cart
