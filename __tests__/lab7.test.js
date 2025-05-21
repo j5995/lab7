@@ -187,6 +187,10 @@ describe('Basic user flow for Website', () => {
      * At this point he item 'cart' in localStorage should be '[]', check to make sure it is
      * Remember to remove the .skip from this it once you are finished writing this test.
      */
-
+    const cart = await page.evaluate(() => {
+      return localStorage.getItem('cart');
+    });
+    
+    expect(cart).toBe['[]'];
   });
 });
