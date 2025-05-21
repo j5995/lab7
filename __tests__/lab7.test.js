@@ -183,8 +183,18 @@ describe('Basic user flow for Website', () => {
      * Also check to make sure that #cart-count is still 0
      * Remember to remove the .skip from this it once you are finished writing this test.
      */
-
-  }, 10000);
+       await page.reload();
+       const prodItemsData = await page.$$('product-item');
+       for(let i = 0; i<prodItemsData.length; i+=1){
+         let shadowRoot = await prodItemsData[i].getProperty("shadowRoot");
+     let button = await shadowRoot.$('button');
+     expect(button.innerText=="Add to Cart");
+       }
+       const val = await page.$eval('#cart-count', (t) => {
+         return t.textContent;
+       });
+       expect(val==0).toBe(true); 
+     }, 20000);
 
   // Checking to make sure that localStorage for the cart is as we'd expect for the
   // cart being empty
