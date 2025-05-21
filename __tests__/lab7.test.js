@@ -100,7 +100,6 @@ describe('Basic user flow for Website', () => {
     	let shadowRoot = await prodItemsData[i].getProperty("shadowRoot");
 	let button = await shadowRoot.$('button');
 	await button.click();
-  console.log(`Clicked button ${i}`);
     }
     await prodItemsData[prodItemsData.length-1].getProperty("shadowRoot");
     const val = await page.$eval('#cart-count', (t) => {
